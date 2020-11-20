@@ -13,7 +13,7 @@
     {% if task_list|length == 0 %}
         <h3>No Tasks Exist</h3>
     {% else %}
-    <table>
+    <table class="pure-table pure-table-striped">
         <thead>
             <tr>
                 <th>Description</th>
@@ -36,7 +36,7 @@
     <h4>Add Task</h4>
     <form class="pure-form" action="{% url 'add' %}" method="POST">
         {% csrf_token %}
-        <table>
+        <table class="pure-table pure-table-striped">
             {{ form.as_table }}
         </table>
         <button class="pure-button" type="submit">ADD TASK</button>
