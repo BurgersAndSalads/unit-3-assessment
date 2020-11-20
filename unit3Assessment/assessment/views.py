@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Task
 from django.forms import ModelForm
+from django.db.models import Sum
 
 # Create your views here.
 
@@ -13,9 +14,11 @@ class TaskForm(ModelForm):
 def home(request):
     tasks = Task.objects.all()
     form = TaskForm()
+    total = Task.objects.all().aggregate(Sum('time'))
     return render(request, 'home.html', {
         'task_list': tasks,
         'form': form,
+        'total': total,
     })
 
 def add(request):
