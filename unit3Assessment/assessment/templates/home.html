@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tedious Tasks</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Tedious Tasks</h1>
+    {% if task_list|length == 0 %}
+        <h3>No Tasks Exist</h3>
+    {% else %}
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Time</th>
+                <th>Person</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+            {% for task in task_list %}
+                <tr>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.time }}</td>
+                    <td>{{ task.person }}</td>
+                    <td><a href="{% url 'delete' task.id %}">X</a></td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </table>
+    <hr>
+    <h4>Add Task</h4>
+    <form class="pure-form" action="{% url 'add' %}" method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button class="pure-button" type="submit">ADD TASK</button>
+    </form>
+</body>
+</html>
